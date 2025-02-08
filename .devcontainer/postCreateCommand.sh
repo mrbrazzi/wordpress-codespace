@@ -20,7 +20,7 @@ wp core install --url=https://$(CODESPACE_NAME) --title=WordPress --admin_user=a
 # Selected plugins
 wp plugin delete akismet
 wp plugin install show-current-template query-monitor --activate
-wp plugin activate wp-codespace
+wp plugin activate wp-codespace mdh-inversor
 
 # Demo content for WordPress
 wp plugin install wordpress-importer --activate
