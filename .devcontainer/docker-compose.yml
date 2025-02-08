@@ -2,10 +2,21 @@ version: '3.8'
 
 services: 
   app:
-    image: tomrosert/wp-codespace:latest
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
+    container_name: wordpress
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=none
+        - WORDPRESS_DB_HOST=mariadb
+        - WORDPRESS_DB_USER=wordpress_db_usr
+        - WORDPRESS_DB_PASSWORD=wordpress_db_pwd
+        - WORDPRESS_DB_NAME=wordpress_db
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: wordpress_db_usr
+      WORDPRESS_DB_PASSWORD: wordpress_db_pwd
+      WORDPRESS_DB_NAME: wordpress_db
     restart: unless-stopped
     volumes:
       - ../..:/workspaces:cached
@@ -13,17 +24,19 @@ services:
 
   db:
     image: mariadb:10.4
+    container_name: mariadb
     restart: unless-stopped
     volumes:
       - mariadb-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: wordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress_root
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: wordpress_db_usr
+      MYSQL_PASSWORD: wordpress_db_pwd
       
   phpmyadmin:
     image: phpmyadmin
+    container_name: phpmyadmin
     depends_on:
       - db
     ports:
