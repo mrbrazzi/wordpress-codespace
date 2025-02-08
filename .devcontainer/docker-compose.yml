@@ -5,7 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - NODE_VERSION=none
+        - IMAGE_VARIANT=8.0
+        - NODE_VERSION=lts
         - WORDPRESS_DB_HOST=mariadb
         - WORDPRESS_DB_USER=wordpress_db_usr
         - WORDPRESS_DB_PASSWORD=wordpress_db_pwd

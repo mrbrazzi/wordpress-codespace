@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/devcontainers/php:0-7.4
+ARG IMAGE_VARIANT=8.0
+FROM mcr.microsoft.com/devcontainers/php:0-${IMAGE_VARIANT}
 
 ARG WORDPRESS_DB_HOST="wordpress"
 ARG WORDPRESS_DB_USER="wordpress"
@@ -20,7 +21,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && mv wp-cli.phar /usr/local/bin/wp
 
 # [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
-ARG NODE_VERSION="19"
+ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # [Optional] Uncomment this section to install additional OS packages.
@@ -30,5 +31,5 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-RUN yes | npx playwright install-deps  
+RUN npx playwright install-deps  
 RUN npx playwright install 
