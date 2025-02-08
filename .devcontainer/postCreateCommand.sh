@@ -7,7 +7,7 @@ sudo sed "s@.*DocumentRoot.*@\tDocumentRoot $PWD/wordpress@" .devcontainer/000-d
 update-rc.d apache2 defaults 
 service apache2 start
 
-LOCALE="de_DE"
+LOCALE="en_US"
 
 # WordPress Core install
 wp core download --locale=$LOCALE --path=wordpress
